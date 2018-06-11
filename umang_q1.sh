@@ -15,11 +15,13 @@ mkdir umang
 mv umang_q2.sh umang
 mv umang_q1.sh umang
 mv umang_production.sh umang
+mv umang_jump.sh umang
 cd umang
 id=$(aws autoscaling describe-auto-scaling-groups --auto-scaling-group-names "shellscripting" --query 'AutoScalingGroups[0].Instances[0].InstanceId' --output text)
 ip=$(aws ec2 describe-instances --instance-ids $id --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
 scp umang_q1.sh ec2-user@$ip:/home/ec2-user/
 scp umang_q2.sh ec2-user@$ip:/home/ec2-user/
+scp umang_production.sh ec2-user@$ip:/home/ec2-user/
 ssh -t -t ec2-user@$ip /home/ec2-user/umang_production.sh
 
 
